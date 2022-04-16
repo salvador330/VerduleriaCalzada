@@ -1,25 +1,53 @@
-$(document).ready(function(){
+let MostrasDatos=`
+<div id="div-01">
+<div class="col-3">
+<h2>Lista de Productos ingresados</h2>            
+<table class="table" id="myTabla">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Kilos</th>
+      <th>Precio</th>
+    </tr>
+  </thead>
+  <tbody>
+   
+  </tbody>
+</table>
 
+<input type="button" value="  Pagina Principal  " id="idregresar" class="btn btn-primary unboton">
+</div>
+</div>`;
+
+$(document).ready(function(){
+  
     //verificar si ahy una seccion abierta para continuar con el mismo
     var usuario = sessionStorage.getItem('usuario');
     var password = sessionStorage.getItem('password');
+    
+    // if (usuario!=null && password!=null) {
+    //    // document.body.innerHTML=PaginaCargaDatos;
+    //   // document.getElementById(".idcontainer").innerHTML = PaginaCargaDato;
+    //    //$(".container").html(PaginaCargaDatos);
+    //    $(".container").empty();
+    //    $(".container").append(PaginaCargaDatos);
 
-    if (usuario!=null && password!=null) {
-        $(".container").html(PaginaCargaDatos);
-    }
+    // }
     
     $("#idsubmit").click(function (e) { 
         // tomo los datos
  
      let formulario=$("#idformulario").serialize();
 
-
+     
+   
      
     if ( ValidarCampos()==true ) {
         
         EscribirProducto(formulario);
         e.preventDefault();
         $("#idformulario")[0].reset(); 
+      
     }else{
         enviarAlerta("Debe ingresar datos validos",'warning');
 
@@ -38,7 +66,13 @@ $(document).ready(function(){
     
     
         //contenedor.remove();
-        $(".container").html(MostrasDatos);
+        
+        
+        // document.body.innerHTML=PaginaCargaDatos;
+       // document.getElementById(".idcontainer").innerHTML = MostrasDatos;
+        $(".container").empty();
+         $(".container").append(MostrasDatos);
+        //$(".container").html(MostrasDatos);
         //trae de la base de datos todos lo productos cargados
         LeerProductos();
 
@@ -49,8 +83,15 @@ $(document).ready(function(){
        
         
         //contenedor.remove();
-        $(".container").html(PaginaCargaDatos);
-       
+       // document.body.innerHTML=PaginaCargaDatos;
+       // document.getElementById(".idcontainer").innerHTML = PaginaCargaDato;
+
+        //$(".container").html(PaginaCargaDatos);
+    //    $(".container").empty();
+    //    $(".container").append(PaginaCargaDatos);
+
+       //redirigir pagina
+       window.location.href = 'ingresdedatos.html';
 
     });
 
@@ -66,27 +107,12 @@ $(document).ready(function(){
         //si esta bien enviar a pagina principla
         //solicitar ingresar nuevamente
         //let permitir=EnviarVerificarUsuario(formulario);
-        var RecordarUsuario= $("#idUser").val();
+        
 
         //console.log(RecordarUsuario);
        
-        if ( EnviarVerificarUsuario(formulario)==true ) {
-        
-          
-            //e.preventDefault();
-            $("#idformulario")[0].reset();
-            //$(".container").html(PaginaCargaDatos); 
-          
-            
-            
-            //sessionStorage.setItem("usuario", RecordarUsuario);
-           
-
-        }else{
-            enviarAlerta("Password Incorrecta",'warning');
-    
-        }
-
+         EnviarVerificarUsuario(formulario);
+       
     });
 
 
@@ -152,12 +178,13 @@ function EscribirProducto(formulario){
         success: function(resultado){
            
            enviarAlerta(resultado,'success');
-
+            console.log("pasooo");
            
         },
         error: function(xhr, status, error){
  
             enviarAlerta("Error en la conexion",'success');
+            console.log("pasooo error");
      
         }
         
@@ -180,16 +207,29 @@ function EnviarVerificarUsuario(formulario){
             var RecordarPassword= $("#idPassword").val();
             sessionStorage.setItem("usuario", RecordarUsuario);
             sessionStorage.setItem("password", RecordarPassword);
+            $("#idformulario")[0].reset();
 
-            $(".container").html(PaginaCargaDatos); 
+        //     // document.body.innerHTML=PaginaCargaDatos;
+        //     //document.getElementById(".idcontainer").innerHTML = PaginaCargaDato;
+        //     $(".container").empty();
+        //     $(".container").append(PaginaCargaDatos);
+        //   //  $(".container").html(PaginaCargaDatos);
+        window.location.href = 'ingresdedatos.html';
+
+            return true;
            }
+           $("#idformulario")[0].reset();
+           enviarAlerta("Password Incorrecta",'warning');
            return false;
+           
 
            
         },
         error: function(xhr, status, error){
- 
+            $("#idformulario")[0].reset();
+            enviarAlerta("Password Incorrecta",'warning');
             return false;
+           
      
         }
         
@@ -208,79 +248,3 @@ setTimeout(() => {
 
 
 }
-
-let PaginaCargaDatos=`
-<br>
-                <div class="form-group row-6">
-                    <div class="col-3">
-                    <form action="" id="idformulario" method="POST" >
-  
-                        <form action="" id="idformulario" method="POST">
-                            <div class="form-group">
-                             <label for="ProductoNombre" id="idNombre" > Nombre:</label>              
-                             <input type="text" id="idDescripcion"  name="nombreProducto" minlength="4" autocomplete="off"  required>
-                            </div>
-                           
-                            <div class="form-group">
-                              <label for="ProductoKilos" id="idKilos" > Kilos:</label><br>
-                              <input type="number" id="idDescripcion"  name="pesoKilos" min="1" autocomplete="off"  required>
-                            </div>
-                   
-                            <div class="form-group">
-                               <label for="ProductoKilos" id="idPrecio" > Precio:</label><br>
-                               <input type="number" id="idDescripcion"  name="pesoPrecio" min="1" autocomplete="off"  required>
-                            </div>   
-                            <div class="btn-group">
-                               <input type="submit" value="    Alta   " id="idsubmit" class="btn btn-primary unboton">
-                               <input type="button" value="    Listar   " id="idListar" class="btn btn-primary unboton">
-                            </div>
-                          </form>
-                           
-                    </form>
-                    </div>
-                </div>`;
-
-let MostrasDatos=`
-
-<div class="col-3">
-<h2>Lista de Productos ingresados</h2>            
-<table class="table" id="myTabla">
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Kilos</th>
-      <th>Precio</th>
-    </tr>
-  </thead>
-  <tbody>
-   
-  </tbody>
-</table>
-
-<input type="button" value="  Pagina Principal  " id="idregresar" class="btn btn-primary unboton">
-</div>
-`;
-
-let IngresoPassword=`
-<br>
-<div class="form-group row-6">
-<div class="col-3">
-<form action="" id="idformulario" method="POST" >
-
-    <form action="" id="idformulario" method="POST">
-        <div class="form-group">
-            <label> Usuario:</label>              
-            <input type="text" id="idUser"  name="usuario" minlength="4" autocomplete="off"  required>
-        </div>
-        
-        <div class="form-group">
-            <label> Contraseña:</label><br>
-            <input type="password" id="idPassword"  name="contraseña" min="1" autocomplete="off"  required>
-        </div>  
-        <div class="btn-group">
-            <input type="button" value="    Ingresar   " id="idBotonPassword" class="btn btn-primary unboton">
-        </div>
-        </form>
-        
-</form>
-`;

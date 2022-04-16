@@ -2,8 +2,8 @@
 
 
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "id18289473_root";
+$password = "T\xxVi9WPMU9Tz-/";
 $db="id18289473_productosverduleria";
 
 try {

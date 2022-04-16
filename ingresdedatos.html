@@ -20,7 +20,7 @@
 
         <div class="jumbotron text-center">
             <h1 class="">Sistema de Alta de Frutas y Verduras</h1>
-            <h5 class="mb-2">Ingreso Credenciales</h5>
+            <h5 class="mb-2">Ingreso de Datos</h5>
         </div>
 
 
@@ -28,21 +28,29 @@
                 <div id="div-01">
                         <br>
                         <div class="form-group row-6">
-                        <div class="col-3">
-                            <form action="" id="idformulario" method="POST">
-                                <div class="form-group">
-                                    <label> Usuario:</label>              
-                                    <input type="text" id="idUser"  name="usuario" minlength="4" autocomplete="off"  required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label> Contraseña:</label><br>
-                                    <input type="password" id="idPassword"  name="contrasena" min="1" autocomplete="off"  required>
-                                </div>  
-                                <div class="btn-group">
-                                    <input type="button" value="    Ingresar   " id="idBotonPassword" class="btn btn-primary unboton">
-                                </div>
+                            <div class="col-3">
+                            <form action="" id="idformulario" method="POST" >
+                                        <div class="form-group">
+                                        <label for="ProductoNombre" id="idNombre" > Nombre:</label>              
+                                        <input type="text" id="idDescripcion"  name="nombreProducto" minlength="4" autocomplete="off"  required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="ProductoKilos" id="idKilos" > Kilos:</label><br>
+                                        <input type="number" id="idDescripcion"  name="pesoKilos" min="1" autocomplete="off"  required>
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="ProductoKilos" id="idPrecio" > Precio:</label><br>
+                                        <input type="number" id="idDescripcion"  name="pesoPrecio" min="1" autocomplete="off"  required>
+                                    </div>   
+                                    <div class="btn-group">
+                                        <input type="submit" value="    Alta   " id="idsubmit" class="btn btn-primary unboton">
+                                        <input type="button" value="    Listar   " id="idListar" class="btn btn-primary unboton">
+                                    </div>
                             </form>
+                            </div>
+                        </div>
                         </div>
                         </div>
         </div>
